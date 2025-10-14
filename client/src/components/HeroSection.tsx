@@ -12,27 +12,30 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
       <div className="absolute inset-0 bg-hero-gradient" />
       
       <div className="relative h-full flex items-center justify-center text-center px-4">
-        <div className="max-w-4xl space-y-6">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Eye className="h-12 w-12 text-primary" />
-            <h1 className="text-5xl md:text-6xl font-bold text-white">Holy AI</h1>
+        <div className="max-w-4xl space-y-8">
+          <div className="flex items-center justify-center mb-6">
+            <img 
+              src="/attached_assets/image (3)_1760441802526.png" 
+              alt="Holy AI Logo" 
+              className="h-32 md:h-40 w-auto"
+            />
           </div>
           
-          <p className="text-2xl md:text-3xl font-semibold text-white">
+          <p className="text-3xl md:text-4xl font-semibold text-white tracking-wide">
             Ancient Wisdom, Modern Answers
           </p>
           
-          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
             Connect deeply with your roots and get real answers to life's questions—instantly.
           </p>
           
-          <div className="pt-4">
+          <div className="pt-6">
             <Button 
               size="lg" 
               variant="default"
               onClick={onGetStarted}
               data-testid="button-get-started"
-              className="text-lg px-8 py-6"
+              className="text-lg px-10 py-7 font-medium"
             >
               <Sparkles className="mr-2 h-5 w-5" />
               Get Started
@@ -41,13 +44,5 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
         </div>
       </div>
     </section>
-  );
-}
-
-function Eye({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-    </svg>
   );
 }
