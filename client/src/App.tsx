@@ -9,8 +9,9 @@ import SignInPage from "@/pages/SignInPage";
 import OnboardingPage from "@/pages/OnboardingPage";
 import WelcomePage from "@/pages/WelcomePage";
 import DashboardPage from "@/pages/DashboardPage";
+import { HolyAIDemo } from "@/pages/HolyAIDemo";
 
-type AppState = "landing" | "signin" | "onboarding" | "welcome" | "dashboard";
+type AppState = "landing" | "signin" | "onboarding" | "welcome" | "dashboard" | "holyai-demo";
 
 function App() {
   const [appState, setAppState] = useState<AppState>("landing");
@@ -39,6 +40,14 @@ function App() {
     setAppState("dashboard");
   };
 
+  const handleHolyAIDemo = () => {
+    setAppState("holyai-demo");
+  };
+
+  const handleBackToDashboard = () => {
+    setAppState("dashboard");
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
@@ -59,7 +68,8 @@ function App() {
           {appState === "welcome" && (
             <WelcomePage onContinue={handleWelcomeContinue} />
           )}
-          {appState === "dashboard" && <DashboardPage />}
+          {appState === "dashboard" && <DashboardPage onHolyAIDemo={handleHolyAIDemo} />}
+          {appState === "holyai-demo" && <HolyAIDemo onBack={handleBackToDashboard} />}
           <Toaster />
         </TooltipProvider>
       </ThemeProvider>

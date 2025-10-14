@@ -4,8 +4,14 @@ import { VoiceGuruInterface } from "@/components/VoiceGuruInterface";
 import { WisdomCard } from "@/components/WisdomCard";
 import { StreakTracker } from "@/components/StreakTracker";
 import { BadgeDisplay } from "@/components/BadgeDisplay";
+import { Button } from "@/components/ui/button";
+import { Brain, MessageSquare } from "lucide-react";
 
-export default function DashboardPage() {
+interface DashboardPageProps {
+  onHolyAIDemo?: () => void;
+}
+
+export default function DashboardPage({ onHolyAIDemo }: DashboardPageProps) {
   const [activeTab, setActiveTab] = useState("home");
 
   const wisdomItems = [
@@ -37,6 +43,19 @@ export default function DashboardPage() {
             <div className="space-y-2">
               <h1 className="text-3xl font-bold">Welcome back!</h1>
               <p className="text-muted-foreground">Continue your journey to wisdom</p>
+              {onHolyAIDemo && (
+                <div className="pt-2">
+                  <Button 
+                    onClick={onHolyAIDemo}
+                    className="flex items-center gap-2"
+                    variant="outline"
+                  >
+                    <Brain className="h-4 w-4" />
+                    Try Holy AI Chat
+                    <MessageSquare className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
             </div>
             
             <div className="grid md:grid-cols-3 gap-6">
