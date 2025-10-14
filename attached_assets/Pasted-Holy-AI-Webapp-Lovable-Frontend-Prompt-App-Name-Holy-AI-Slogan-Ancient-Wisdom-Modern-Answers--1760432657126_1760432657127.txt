@@ -1,0 +1,103 @@
+Holy AI Webapp: Lovable Frontend Prompt
+App Name: Holy AI
+Slogan: Ancient Wisdom, Modern Answers
+
+Overview
+Design the front end of a webapp that bridges ancient Indian wisdom and modern problem-solving using a conversational, voice-first AI. Prioritize warmth, inclusivity, and identity-rooted engagement, targeting young, curious learners and wisdom-seeking explorers alike. The UI should use calming, light orange and off-white (very light skin-tone) backgrounds, featuring a celestial eye motif central to the brand.
+
+Landing Page
+Hero section with beautiful, evocative images (celestial, eye motif, diverse individuals interacting with wisdom and technology).​
+
+Clear slogan: “Ancient Wisdom, Modern Answers”.​
+
+Value proposition: “Connect deeply with your roots and get real answers to life’s questions—instantly.”
+
+‘Get Started’ button leading to sign-in.
+
+Showcase features via friendly cards:
+
+Voice-Guru AI (Ask anything, get conversational answers sourced from the classics)
+
+Learning Nudges (Smart reminders, daily wisdom bites)
+
+Progress Streaks (Rewards for consistent learning)
+
+Personalized Guidance (Ancient stories, modern solutions)
+
+Carousel or grid for testimonials, small story snippets, and daily wisdom.​
+
+Team or “Our Values” section stressing spiritual neutrality, inclusivity, and trust.
+
+Sign-In Page
+Clean, welcoming design with light orange and off-white gradients.
+
+Branded Holy.AI logo with eye motif.
+
+“Sign in with Google” button (OAuth integration).
+
+Option for “Continue as Guest” (limited access).
+
+UX microcopy: “Your privacy and spiritual journey matter. Only you see your profile and progress.”​
+
+Core Onboarding: 5-Question Quiz
+After login, greet user by name and begin a 5-question quiz (as specified in your PRD) designed to personalize the experience.
+
+Quiz should support voice input and text fallback.
+
+Store responses to drive nudge personalization and recommended wisdom topics.​
+
+Reward completion with a “Welcome to Your Wisdom Journey” badge.
+
+Main Dashboard
+Persistent navigation bar with icons: Home, Wisdom Feed, Ask Guru, Streaks, Profile, Settings, Appearance Mode.
+
+“Ask the Guru” voice interface, with selectable voice character (calm mentor, warm teacher, wise elder).​
+
+Quick links to daily/weekly wisdom bites based on quiz answers.
+
+Progress tracking (streaks, badges for learning milestones).
+
+“Explore Deeper” module for advanced stories, shlokas, and contextual trivia.
+
+Reference/source display (show exact verses or stories for each answer).​
+
+Profile and Settings
+Editable personal info (photo, name, interests, favorite wisdom topics).
+
+Appearance mode: switcher (light, dark, high-contrast, orange-celestial theme).
+
+Voice character preference.
+
+Notification controls (learning nudges: on/off, timing).
+
+Privacy settings.
+
+History of asked questions, answered wisdom, and unlocked badges.
+
+Option for feedback and reporting inappropriate content.
+
+Additional Features (Realistic + Valuable)
+Community Mode: “Hear insights from fellow seekers”—listen and contribute to most-asked questions, join a wisdom feed.​
+
+Gamified quizzes and challenges (earn points, leaderboard).
+
+Multilingual support (future roadmap placeholder; show disabled for launch).
+
+Micro-journaling (optional, lightweight daily reflections).
+
+Accessibility options (font size, text-to-speech).
+
+Help/FAQ and customer support chatbot.
+
+Lovable Touches
+Use celestial/eye motifs delicately throughout UI.
+
+Soft animations (fade, slide, gentle pops for nudges).
+
+“You streaked today!” confetti for progress.
+
+Friendly, mentor-like microcopy (“We’re with you on your journey.”).
+
+Prompt End.
+Ensure the experience feels caring, wisdom-filled, and genuinely helpful, combining ancient credibility with modern, lovable UX.​
+
