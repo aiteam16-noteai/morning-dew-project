@@ -13,10 +13,10 @@ export function SignInCard({ onGoogleSignIn, onGuestContinue }: SignInCardProps)
     <Card className="w-full max-w-md">
       <CardHeader className="text-center space-y-4">
         <div className="flex justify-center">
-          <img 
-            src="/attached_assets/image (3)_1760441802526.png" 
-            alt="Holy AI Logo" 
-            className="h-20 w-auto"
+          <img
+            src="/logo.jpeg"
+            alt="Holy AI Logo"
+            className="h-20 w-auto rounded-lg"
           />
         </div>
         <CardTitle className="text-2xl">Welcome to Holy AI</CardTitle>

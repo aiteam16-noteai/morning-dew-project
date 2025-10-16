@@ -88,8 +88,15 @@ export function OnboardingQuiz({ userName, onComplete }: OnboardingQuizProps) {
     <div className="max-w-2xl mx-auto p-4">
       <Card>
         <CardHeader>
+          <div className="flex justify-center mb-4">
+            <img
+              src="/logo.jpeg"
+              alt="Holy AI Logo"
+              className="h-16 w-auto rounded-lg"
+            />
+          </div>
           <CardTitle className="text-2xl">
-            Welcome, {userName}! 
+            Welcome, {userName}!
           </CardTitle>
           <CardDescription>
             Let's personalize your wisdom journey with a few questions

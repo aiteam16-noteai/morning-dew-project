@@ -17,6 +17,13 @@ export function WelcomeBadge({ onContinue }: WelcomeBadgeProps) {
       >
         <Card className="max-w-md text-center">
           <CardContent className="pt-8 pb-8 space-y-6">
+            <div className="flex justify-center mb-4">
+              <img
+                src="/logo.jpeg"
+                alt="Holy AI Logo"
+                className="h-20 w-auto rounded-lg"
+              />
+            </div>
             <motion.div
               initial={{ rotate: 0 }}
               animate={{ rotate: 360 }}

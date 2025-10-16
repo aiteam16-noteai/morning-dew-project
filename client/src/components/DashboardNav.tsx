@@ -23,10 +23,10 @@ export function DashboardNav({ activeTab, onTabChange }: DashboardNavProps) {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-6">
             <div className="flex items-center">
-              <img 
-                src="/attached_assets/image (3)_1760441802526.png" 
-                alt="Holy AI" 
-                className="h-10 w-auto"
+              <img
+                src="/logo.jpeg"
+                alt="Holy AI"
+                className="h-10 w-auto rounded"
               />
             </div>
             
