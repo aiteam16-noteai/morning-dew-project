@@ -11,6 +11,12 @@
       "destination": "/index.html"
     }
   ],
+  "functions": {
+    "api/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
   "env": {
     "NODE_ENV": "production"
   }
