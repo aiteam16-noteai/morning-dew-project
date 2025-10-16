@@ -15,12 +15,6 @@
       "destination": "/index.html"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/.*",
-      "dest": "/api/index.html"
-    }
-  ],
   "functions": {
     "api/**/*.js": {
       "memory": 1024,
