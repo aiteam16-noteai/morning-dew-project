@@ -7,10 +7,10 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
       <div className="relative h-full flex items-center justify-center text-center px-4">
         <div className="max-w-4xl space-y-8">
           <div className="flex items-center justify-center mb-6">
-            <img 
-              src="/attached_assets/image (3)_1760441802526.png" 
-              alt="Holy AI Logo" 
-              className="h-32 md:h-40 w-auto"
+            <img
+              src="/logo.jpeg"
+              alt="Holy AI Logo"
+              className="h-32 md:h-40 w-auto rounded-lg shadow-lg"
             />
           </div>
           
