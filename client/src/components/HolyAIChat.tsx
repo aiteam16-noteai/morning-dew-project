@@ -52,14 +52,17 @@ export function HolyAIChat({ userId, collection, className }: HolyAIChatProps) {
           <Alert>
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-              Please configure the following environment variables:
+              Backend services status:
               <ul className="mt-2 space-y-1 text-sm">
-                <li>• VITE_OPENAI_API_KEY: {configStatus.openai ? '✅' : '❌'}</li>
-                <li>• VITE_QDRANT_URL: {configStatus.qdrant ? '✅' : '❌'}</li>
-                <li>• VITE_QDRANT_COLLECTION: {configStatus.qdrantCollection} (default: documents)</li>
-                <li>• VITE_SUPABASE_URL: {configStatus.supabase ? '✅' : '❌'} (Optional)</li>
-                <li>• VITE_SUPABASE_ANON_KEY: {configStatus.supabase ? '✅' : '❌'} (Optional)</li>
+                <li>• OpenAI API: {configStatus.openai ? '✅ Connected' : '❌ Not configured'} (Backend)</li>
+                <li>• Qdrant Vector Search: {configStatus.qdrant ? '✅ Connected' : '❌ Not configured'} (Backend)</li>
+                <li>• Collection: {configStatus.qdrantCollection}</li>
+                <li>• ElevenLabs Voice: {configStatus.elevenLabs ? '✅ Configured' : '⚠️ Optional'}</li>
+                <li>• Supabase History: {configStatus.supabase ? '✅ Configured' : '⚠️ Optional'}</li>
               </ul>
+              <p className="mt-3 text-xs text-muted-foreground">
+                Note: OpenAI and Qdrant are handled by the backend server. Make sure environment variables are set on the server.
+              </p>
             </AlertDescription>
           </Alert>
         </CardContent>

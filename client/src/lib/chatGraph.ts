@@ -1,47 +1,39 @@
-import OpenAI from 'openai';
 import { getSupabaseClient, healthcheck } from './supabaseHelpers';
 
 /**
- * Lazy initialization of OpenAI client
- * @returns {OpenAI} OpenAI client instance
+ * OpenAI operations are now handled by the backend to keep API keys secure.
+ * All OpenAI calls go through /api/openai/* endpoints.
  */
-function _lazyOpenaiClient() {
-    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-    if (!apiKey) {
-        throw new Error('VITE_OPENAI_API_KEY not set');
-    }
-    return new OpenAI({ 
-        apiKey,
-        dangerouslyAllowBrowser: true // Required for browser usage
-    });
-}
-
-// Qdrant client is no longer needed - we use the backend proxy instead
 
 /**
- * Embed texts using OpenAI embeddings
+ * Embed texts using OpenAI embeddings via backend API
  * @param {string[]} texts - Array of texts to embed
  * @param {string | null} model - Embedding model to use
  * @returns {Promise<number[][]>} Array of embedding vectors
  */
 async function _embedTexts(texts: string[], model: string | null = null) {
     try {
-        const client = _lazyOpenaiClient();
-        const embedModel = model || import.meta.env.VITE_OPENAI_EMBED_MODEL || 'text-embedding-3-small';
-        const batchSize = parseInt(import.meta.env.VITE_OPENAI_BATCH_SIZE || '96');
-        
-        console.log(`🔤 Embedding ${texts.length} texts using model: ${embedModel}`);
-        
-        const vectors: number[][] = [];
-        for (let start = 0; start < texts.length; start += batchSize) {
-            const batch = texts.slice(start, start + batchSize);
-            const response = await client.embeddings.create({
-                model: embedModel,
-                input: batch
-            });
-            vectors.push(...response.data.map(d => d.embedding));
+        console.log(`🔤 Embedding ${texts.length} texts via backend`);
+
+        const response = await fetch('/api/openai/embeddings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                texts,
+                model
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || `Embeddings API error: ${response.status}`);
         }
-        
+
+        const data = await response.json();
+        const vectors = data.embeddings;
+
         console.log(`✅ Generated ${vectors.length} embeddings with dimension ${vectors[0]?.length || 0}`);
         return vectors;
     } catch (error) {
@@ -166,27 +158,36 @@ function _buildChatMessages(userId: string, userQuestion: string, retrievedConte
 }
 
 /**
- * Call GPT with the provided messages
+ * Call GPT with the provided messages via backend API
  * @param {any[]} messages - Array of message objects
  * @param {string | null} model - Chat model to use
  * @returns {Promise<string>} GPT response
  */
 async function _callGpt(messages: any[], model: string | null = null) {
-    const client = _lazyOpenaiClient();
-    const chatModel = model || import.meta.env.VITE_OPENAI_CHAT_MODEL || 'gpt-4o-mini';
-    
-    console.log('🤖 Calling OpenAI with', messages.length, 'messages');
+    console.log('🤖 Calling OpenAI via backend with', messages.length, 'messages');
     console.log('📝 System prompt preview:', messages[0]?.content?.substring(0, 200) + '...');
-    
-    const response = await client.chat.completions.create({
-        model: chatModel,
-        messages,
-        temperature: 0.2
+
+    const response = await fetch('/api/openai/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            messages,
+            model,
+            temperature: 0.2
+        })
     });
-    
-    const answer = (response.choices[0].message.content || '').trim();
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || `Chat API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const answer = (data.response || '').trim();
     console.log('✅ OpenAI response:', answer.substring(0, 200) + (answer.length > 200 ? '...' : ''));
-    
+
     return answer;
 }
 

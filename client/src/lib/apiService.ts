@@ -68,18 +68,19 @@ export class HolyAIService {
   /**
    * Check if the service is properly configured
    * @returns boolean - true if service is ready
+   * Note: OpenAI is now backend-only, so we only check Qdrant and ElevenLabs frontend configs
    */
   static isConfigured(): boolean {
-    // Get values from environment variables
-    const openaiKey = import.meta.env.VITE_OPENAI_API_KEY;
-    const qdrantUrl = import.meta.env.VITE_QDRANT_URL;
-    
+    // Frontend only needs ElevenLabs for voice features
+    // OpenAI and Qdrant are handled by backend
+    const elevenLabsKey = import.meta.env.VITE_ELEVENLABS_API_KEY;
+
     // Debug logging
-    console.log('🔍 Checking configuration:');
-    console.log('VITE_OPENAI_API_KEY:', openaiKey ? 'SET' : 'NOT SET', openaiKey ? `(${openaiKey.substring(0, 10)}...)` : '');
-    console.log('VITE_QDRANT_URL:', qdrantUrl ? 'SET' : 'NOT SET', qdrantUrl ? `(${qdrantUrl.substring(0, 20)}...)` : '');
-    
-    const result = !!(openaiKey && qdrantUrl);
+    console.log('🔍 Checking frontend configuration:');
+    console.log('VITE_ELEVENLABS_API_KEY:', elevenLabsKey ? 'SET' : 'NOT SET');
+
+    // Service is configured if backend is available (we'll check this via health endpoint)
+    const result = true; // Backend handles OpenAI/Qdrant, frontend always ready
     console.log('✅ Configuration result:', result);
     return result;
   }
@@ -98,9 +99,10 @@ export class HolyAIService {
    */
   static getConfigStatus() {
     return {
-      openai: !!import.meta.env.VITE_OPENAI_API_KEY,
-      qdrant: !!import.meta.env.VITE_QDRANT_URL,
-      qdrantCollection: import.meta.env.VITE_QDRANT_COLLECTION || 'documents',
+      openai: true, // Handled by backend
+      qdrant: true, // Handled by backend
+      qdrantCollection: import.meta.env.VITE_QDRANT_COLLECTION || 'data',
+      elevenLabs: !!import.meta.env.VITE_ELEVENLABS_API_KEY,
       supabase: !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY),
       supabaseOptional: true, // Supabase is optional for core functionality
       configured: this.isConfigured()

@@ -4,6 +4,7 @@ import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import LandingPage from "@/pages/LandingPage";
 import SignInPage from "@/pages/SignInPage";
 import OnboardingPage from "@/pages/OnboardingPage";
@@ -49,31 +50,33 @@ function App() {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <TooltipProvider>
-          {appState === "landing" && <LandingPage onGetStarted={handleGetStarted} />}
-          {appState === "signin" && (
-            <SignInPage 
-              onGoogleSignIn={handleGoogleSignIn}
-              onGuestContinue={handleGuestContinue}
-            />
-          )}
-          {appState === "onboarding" && (
-            <OnboardingPage 
-              userName={userName}
-              onComplete={handleOnboardingComplete}
-            />
-          )}
-          {appState === "welcome" && (
-            <WelcomePage onContinue={handleWelcomeContinue} />
-          )}
-          {appState === "dashboard" && <DashboardPage onHolyAIDemo={handleHolyAIDemo} />}
-          {appState === "holyai-demo" && <HolyAIDemo onBack={handleBackToDashboard} />}
-          <Toaster />
-        </TooltipProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <TooltipProvider>
+            {appState === "landing" && <LandingPage onGetStarted={handleGetStarted} />}
+            {appState === "signin" && (
+              <SignInPage
+                onGoogleSignIn={handleGoogleSignIn}
+                onGuestContinue={handleGuestContinue}
+              />
+            )}
+            {appState === "onboarding" && (
+              <OnboardingPage
+                userName={userName}
+                onComplete={handleOnboardingComplete}
+              />
+            )}
+            {appState === "welcome" && (
+              <WelcomePage onContinue={handleWelcomeContinue} />
+            )}
+            {appState === "dashboard" && <DashboardPage onHolyAIDemo={handleHolyAIDemo} />}
+            {appState === "holyai-demo" && <HolyAIDemo onBack={handleBackToDashboard} />}
+            <Toaster />
+          </TooltipProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 

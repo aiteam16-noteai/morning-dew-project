@@ -1,5 +1,14 @@
-const ELEVENLABS_API_KEY = 'sk_c05da3cf513e18ec154c9c5347f40d010ffdd08626f3d6e9';
-const VOICE_ID = 'JBFqnCBsd6RMkjVDRZzb'; // Default voice ID
+// Get API key and voice ID from environment variables
+const getElevenLabsConfig = () => {
+  const apiKey = import.meta.env.VITE_ELEVENLABS_API_KEY;
+  const voiceId = import.meta.env.VITE_ELEVENLABS_VOICE_ID || 'JBFqnCBsd6RMkjVDRZzb';
+
+  if (!apiKey) {
+    throw new Error('VITE_ELEVENLABS_API_KEY is not set in environment variables');
+  }
+
+  return { apiKey, voiceId };
+};
 
 /**
  * Convert speech to text using ElevenLabs STT API
@@ -9,7 +18,9 @@ const VOICE_ID = 'JBFqnCBsd6RMkjVDRZzb'; // Default voice ID
 export async function speechToText(audioBlob: Blob): Promise<string> {
   try {
     console.log('🎤 Converting speech to text...');
-    
+
+    const { apiKey } = getElevenLabsConfig();
+
     const formData = new FormData();
     formData.append('model_id', 'scribe_v1');
     formData.append('file', audioBlob, 'recording.wav');
@@ -17,7 +28,7 @@ export async function speechToText(audioBlob: Blob): Promise<string> {
     const response = await fetch('https://api.elevenlabs.io/v1/speech-to-text', {
       method: 'POST',
       headers: {
-        'xi-api-key': ELEVENLABS_API_KEY,
+        'xi-api-key': apiKey,
       },
       body: formData
     });
@@ -43,18 +54,21 @@ export async function speechToText(audioBlob: Blob): Promise<string> {
  * @param voiceId - Voice ID to use (optional)
  * @returns Promise<Blob> - Audio blob
  */
-export async function textToSpeech(text: string, voiceId: string = VOICE_ID): Promise<Blob> {
+export async function textToSpeech(text: string, voiceId?: string): Promise<Blob> {
   try {
     console.log('🔊 Converting text to speech...', `Text length: ${text.length} chars`);
-    
+
+    const { apiKey, voiceId: defaultVoiceId } = getElevenLabsConfig();
+    const selectedVoiceId = voiceId || defaultVoiceId;
+
     // Truncate very long text to avoid API limits
     const maxLength = 5000; // ElevenLabs has character limits
     const truncatedText = text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-    
-    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, {
+
+    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${selectedVoiceId}?output_format=mp3_44100_128`, {
       method: 'POST',
       headers: {
-        'xi-api-key': ELEVENLABS_API_KEY,
+        'xi-api-key': apiKey,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
